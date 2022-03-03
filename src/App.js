@@ -1,10 +1,21 @@
 import './App.css';
-import {Avatar} from "@mui/material";
+import {Avatar, Tooltip} from "@mui/material";
+import intellijLogo from './IntelliJ_IDEA_Icon.svg'
+import slackLogo from './slack-new-logo.svg'
+
+import {Fragment} from "react";
 
 function App() {
-  return (
-    <Avatar src="http://assets.stickpng.com/images/5cb480cd5f1b6d3fbadece79.png" sx={{width: 64, height: 64}}/>
-  );
+    return (
+        <Fragment>
+            <Tooltip title="IntelliJ">
+                <Avatar src={intellijLogo} sx={{width: 64, height: 64}}/>
+            </Tooltip>
+            <Tooltip title="Slack">
+                <Avatar src={slackLogo} sx={{width: 64, height: 64}}/>
+            </Tooltip>
+        </Fragment>
+    );
 }
 
 export default App;
