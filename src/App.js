@@ -1,19 +1,31 @@
 import './App.css';
-import {Avatar, Tooltip} from "@mui/material";
-import intellijLogo from './IntelliJ_IDEA_Icon.svg'
-import slackLogo from './slack-new-logo.svg'
+import {styled} from "@mui/material";
 
-import {Fragment} from "react";
+import {Fragment, useEffect, useState} from "react";
+import {apiGet} from "./utils";
+
+const AvatarImg = styled('img')({
+    width: 256,
+    height: 256,
+    borderRadius: '50%',
+    border: '1px solid #303030'
+});
 
 function App() {
+    const [avatarUrl, setAvatarUrl] = useState(undefined);
+    const [markdown, setMarkdown] = useState('');
+    useEffect(() => {
+        const getAvatarUrl = async () => {
+            setAvatarUrl(await apiGet('/user/robvanderleek/avatar_url'));
+            setMarkdown(await apiGet('/user/robvanderleek/my-awesome'));
+        };
+        getAvatarUrl();
+    }, [])
+
     return (
         <Fragment>
-            <Tooltip title="IntelliJ">
-                <Avatar src={intellijLogo} sx={{width: 64, height: 64}}/>
-            </Tooltip>
-            <Tooltip title="Slack">
-                <Avatar src={slackLogo} sx={{width: 64, height: 64}}/>
-            </Tooltip>
+            <AvatarImg alt="Avatar" src={avatarUrl}/>
+            {markdown}
         </Fragment>
     );
 }
